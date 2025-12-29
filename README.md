@@ -1,4 +1,3 @@
-```markdown
 # ForgeryLens: Digital Image Forgery Detection
 
 > **Detecting Digital Image Forgery using Error Level Analysis (ELA) and Transfer Learning with Lightweight CNN Architectures.**
@@ -63,52 +62,18 @@ The full training pipeline, dataset handling, and inference code are hosted on K
 
 **[🔗 Open Project Notebook on Kaggle](https://www.kaggle.com/code/sarthakdey/visual-computing-25ai60r20-25ai60r11)**
 
-### Code Snippet: Error Level Analysis
-Here is the core function used to generate ELA maps:
-
-```python
-from PIL import Image, ImageChops, ImageEnhance
-
-def convert_to_ela_image(path, quality=90):
-    image = Image.open(path).convert('RGB')
-    
-    # Save as temporary image at specific quality
-    image.save('temp.jpg', 'JPEG', quality=quality)
-    temp_image = Image.open('temp.jpg')
-    
-    # Calculate pixel difference
-    ela_image = ImageChops.difference(image, temp_image)
-    
-    # Amplify the difference
-    extrema = ela_image.getextrema()
-    max_diff = max([ex[1] for ex in extrema])
-    if max_diff == 0: max_diff = 1
-    scale = 255.0 / max_diff
-    
-    return ImageEnhance.Brightness(ela_image).enhance(scale)
-
-```
-
 ## 👥 Contributors
 
 This project was developed as part of the Visual Computing coursework at **IIT Kharagpur**.
 
-* 
-**Sarthak Dey** ([sarthak.dey.xyz@gmail.com](mailto:sarthak.dey.xyz@gmail.com)) 
+* **Sarthak Dey** ([sarthak.dey.xyz@gmail.com](mailto:sarthak.dey.xyz@gmail.com))
+    * Identified and selected suitable deep learning architectures, focusing on lightweight models for mobile deployment.
+    * Trained and fine-tuned all models (ResNet18, ResNet34, ResNet50, MobileNet V2, and EfficientNet-Lite0) using transfer learning.
+    * Implemented the complete training pipeline, optimization loops, and evaluation metrics.
 
+* **Ritish Prabhat Bhatt** ([bhattritish05@gmail.com](mailto:bhattritish05@gmail.com))
+    * Conducted the literature review, summarizing existing approaches, transformer-based models, and recent advancements in image forgery detection.
+    * Led the Error Level Analysis (ELA) component, including understanding, implementing, and verifying the preprocessing pipeline.
+    * Handled dataset organization and ELA-based data preprocessing for the CASIA 2.0 dataset.
 
-* Identified and selected suitable deep learning architectures, focusing on lightweight models for mobile deployment.
-* Trained and fine-tuned all models (ResNet18, ResNet34, ResNet50, MobileNet V2, and EfficientNet-Lite0) using transfer learning.
-* Implemented the complete training pipeline, optimization loops, and evaluation metrics.
-
-
-* 
-**Ritish Prabhat Bhatt** ([bhattritish05@gmail.com](mailto:bhattritish05@gmail.com)) 
-
-
-* Conducted the literature review, summarizing existing approaches, transformer-based models, and recent advancements in image forgery detection.
-* Led the Error Level Analysis (ELA) component, including understanding, implementing, and verifying the preprocessing pipeline.
-* Handled dataset organization and ELA-based data preprocessing for the CASIA 2.0 dataset.
-```
-
-```
+---
