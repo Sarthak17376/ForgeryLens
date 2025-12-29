@@ -1,3 +1,4 @@
+```markdown
 # ForgeryLens: Digital Image Forgery Detection
 
 > **Detecting Digital Image Forgery using Error Level Analysis (ELA) and Transfer Learning with Lightweight CNN Architectures.**
@@ -13,7 +14,7 @@
 
 This project combines **Error Level Analysis (ELA)** to highlight compression artifacts with a suite of **Convolutional Neural Networks (CNNs)** to classify images as "Authentic" or "Tampered". A key focus of this work is evaluating lightweight architectures (like MobileNetV2) for future deployment on low-power mobile and embedded devices.
 
-📄 **Detailed Analysis:** For a comprehensive technical breakdown, methodology, and experimental data, please refer to the [Project Report (PDF)](Visual_Computing_project.pdf) included in this repository.
+📄 **Detailed Analysis:** For a comprehensive technical breakdown, methodology, and experimental data, please refer to the [Project Report (PDF)](ForgeryLens%20Report.pdf) included in this repository.
 
 ## 🚀 Key Features
 
@@ -28,20 +29,18 @@ The detection pipeline consists of three main stages:
 
 1.  **Data Preparation:**
     * **Source:** CASIA 2.0 Image Tampering Detection Dataset.
-    * **Distribution:** Balanced set of ~2,100 Authentic images and ~2,064 Tampered images.
-2.  **ELA Preprocessing:** 
+    * **Distribution:** Balanced set of ~2,100 Authentic images and ~2,064 Tampered images to prevent class bias.
+
+2.  **ELA Preprocessing:**
     * Input images are re-compressed at a known quality (90%).
     * The difference between the original and re-compressed image is calculated.
-    * Differences are amplified to create an "ELA Map" that highlights spliced regions (which often exhibit different compression histories).
-3.  **Classification (CNNs):** 
+    * Differences are amplified to create an "ELA Map" that highlights spliced regions (which often exhibit different compression histories compared to the background).
 
-[Image of cnn architecture diagram]
-
-    * The ELA maps are fed into CNN models to learn the distinction between authentic and forged patterns.
-    * **Models Evaluated:**
-        * ResNet18, ResNet34, ResNet50.
-        * **MobileNetV2 (Best Trade-off)**.
-        * EfficientNet-Lite0.
+3.  **Classification (CNNs):**
+    * The ELA maps are fed into CNN models to learn the distinction between authentic and forged patterns. We evaluated a spectrum of architectures ranging from deep residual networks to lightweight mobile models:
+        * **ResNet Family (18, 34, 50):** Utilizes residual skip connections to train deeper networks effectively, capturing complex hierarchical features.
+        * **MobileNetV2 (Best Trade-off):** Uses inverted residual blocks and linear bottlenecks to maximize efficiency, making it ideal for the project's goal of mobile deployment.
+        * **EfficientNet-Lite0:** An architecture optimized for edge devices, focusing on reducing parameter count while maintaining accuracy.
 
 ## 🛠️ Tech Stack
 
@@ -58,16 +57,11 @@ The project evaluated models based on accuracy, model size, FLOPs (floating-poin
 * **Best Performer for Deployment:** **MobileNetV2**
     * It achieved the optimal balance between high detection accuracy and computational efficiency, making it the most suitable candidate for mobile or edge-based systems.
 
-## 💻 Usage & Demo
+## 💻 Usage
 
-You do not need to install the environment locally to test the project. The full training pipeline and inference code are hosted on Kaggle.
+The full training pipeline, dataset handling, and inference code are hosted on Kaggle. You can access and run the notebook directly in your browser using free GPU resources.
 
-### 🚀 Run on Kaggle
-Click the link below to access the notebook, where you can run the code using free GPU resources:
-
-**[🔗 View Project Notebook on Kaggle](https://www.kaggle.com/code/sarthakdey/visual-computing-25ai60r20-25ai60r11)**
-
-*Note: The dataset is automatically handled within the Kaggle environment.*
+**[🔗 Open Project Notebook on Kaggle](https://www.kaggle.com/code/sarthakdey/visual-computing-25ai60r20-25ai60r11)**
 
 ### Code Snippet: Error Level Analysis
 Here is the core function used to generate ELA maps:
@@ -92,3 +86,29 @@ def convert_to_ela_image(path, quality=90):
     scale = 255.0 / max_diff
     
     return ImageEnhance.Brightness(ela_image).enhance(scale)
+
+```
+
+## 👥 Contributors
+
+This project was developed as part of the Visual Computing coursework at **IIT Kharagpur**.
+
+* 
+**Sarthak Dey** ([sarthak.dey.xyz@gmail.com](mailto:sarthak.dey.xyz@gmail.com)) 
+
+
+* Identified and selected suitable deep learning architectures, focusing on lightweight models for mobile deployment.
+* Trained and fine-tuned all models (ResNet18, ResNet34, ResNet50, MobileNet V2, and EfficientNet-Lite0) using transfer learning.
+* Implemented the complete training pipeline, optimization loops, and evaluation metrics.
+
+
+* 
+**Ritish Prabhat Bhatt** ([bhattritish05@gmail.com](mailto:bhattritish05@gmail.com)) 
+
+
+* Conducted the literature review, summarizing existing approaches, transformer-based models, and recent advancements in image forgery detection.
+* Led the Error Level Analysis (ELA) component, including understanding, implementing, and verifying the preprocessing pipeline.
+* Handled dataset organization and ELA-based data preprocessing for the CASIA 2.0 dataset.
+```
+
+```
